@@ -1,3 +1,5 @@
+//Data, starting off as "dummy friend"
+
 var friendsArray = [
   {
     name: 'John Doe',
@@ -6,3 +8,6 @@ var friendsArray = [
     scores: ['5', '5', '5', '5', '5', '5', '5', '5', '5', '5']
   }
 ];
+
+//export the array to other files
+module.exports = friendsArray;

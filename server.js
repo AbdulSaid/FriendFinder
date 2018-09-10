@@ -15,12 +15,8 @@ app.use(bodyParser.json());
 
 // Routes for the server to give a "map" of how to respond on user visit or request of data
 
-// require('./app/routing/apiRoutes')(app);
+require('./app/routing/apiRoutes')(app);
 require('./app/routing/htmlRoutes')(app);
-
-// app.get('/', function(req, res) {
-//   res.sendFile(path.join(__dirname, 'home.html'));
-// });
 
 // Starting server to begin listening
 
