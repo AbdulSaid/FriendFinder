@@ -32,6 +32,12 @@ You will use Express to handle routing. Make sure you deploy your app to Heroku 
   
 Survey has 10 questions. Each answer should be on a scale of 1 to 5 based on how much the user agrees or disagrees with a question.
 
+
+- - -
+
+## Deployed Heroku Link
+https://friendfinderutm.herokuapp.com/
+
 - - -
 
 ## Built With
@@ -42,11 +48,9 @@ Survey has 10 questions. Each answer should be on a scale of 1 to 5 based on how
 
 - - -
 
-
 ## Portfolio Link 
 
 https://abdulsaid.github.io/
-
 
 
 - - -
