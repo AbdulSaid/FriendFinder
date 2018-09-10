@@ -13,18 +13,18 @@ module.exports = function(app) {
   // Add new friend entry
   app.post('/api/friends', function(req, res) {
     var userInput = req.body;
-    console.log('userInput' + JSON.stringify(userInput);
+
     var userResponses = userInput.scores;
     console.log('userResponses' + userResponses);
 
     // Figure out whose the best friend
 
-    var matchName = "";
-    var matchImage = "";
+    var matchName = '';
+    var matchImage = '';
     var totalDifference = 10000;
 
-    // Total existing friends 
-    for (var i = 0; i < friends.length; i++){
+    // Total existing friends
+    for (var i = 0; i < friends.length; i++) {
       var diff = 0;
       for (var j = 0; j < userResponses.length; j++) {
         diff += Math.abs(friends[i].scores[j] - userResponses[j]);
@@ -34,9 +34,8 @@ module.exports = function(app) {
         matchName = friends[i].name;
         matchImage = friends[i].photo;
       }
-
     }
     friends.push(userInput);
-    res.json({status: "OK", matchName: matchName, matchImage: matchImage})
+    res.json({ status: 'OK', matchName: matchName, matchImage: matchImage });
   });
 };
