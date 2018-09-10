@@ -30,14 +30,14 @@
       <div class="form-row">
         <div class="col-md-12">
           <label for="validationTooltip01">Name (Required)</label>
-          <input type="text" class="form-control" id="validationTooltip01" required>
+          <input type="text" class="form-control nameFriend" id="validationTooltip01" required>
           <div class="valid-tooltip">
             Looks good!
           </div>
         </div>
         <div class="col-md-12">
           <label for="validationTooltip02">Link to Photo Image (Required)</label>
-          <input type="text" class="form-control" id="validationTooltip02" required>
+          <input type="text" class="form-control pictureFriend" id="validationTooltip02" required>
           <div class="valid-tooltip">
             Looks good!
           </div>
@@ -46,7 +46,7 @@
       </div>
       <hr class="my-4">
       <h4><strong>Question 1</strong></h4>
-      <h5>You are always thinking about chicken.</h5>
+      <h5>You often contemplate the reasons for human existence.</h5>
       <select class="chosen-select" id="q1">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -60,7 +60,7 @@
       <br>
 
       <h4><strong>Question 2</strong></h4>
-      <h5>You are always thinking about chicken.</h5>
+      <h5>You have no difficulties coming up with a personal timetable and sticking to it.</h5>
       <select class="chosen-select" id="q2">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -74,7 +74,7 @@
       <br>
 
       <h4><strong>Question 3</strong></h4>
-      <h5>You are always thinking about chicken.</h5>
+      <h5>Being right is more important than being cooperative when it comes to teamwork..</h5>
       <select class="chosen-select" id="q3">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -88,7 +88,7 @@
       <br>
 
       <h4><strong>Question 4</strong></h4>
-      <h5>You are always thinking about chicken.</h5>
+      <h5>You feel more energetic after spending time with a group of people.</h5>
       <select class="chosen-select" id="q4">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -102,7 +102,7 @@
       <br>
 
       <h4><strong>Question 5</strong></h4>
-      <h5>You are always thinking about chicken.</h5>
+      <h5>You would not call yourself a dreamer.</h5>
       <select class="chosen-select" id="q5">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -116,7 +116,7 @@
       <br>
 
       <h4><strong>Question 6</strong></h4>
-      <h5>You are always thinking about chicken.</h5>
+      <h5>Generally speaking, you rely more on your experience than your imagination.</h5>
       <select class="chosen-select" id="q6">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -130,7 +130,7 @@
       <br>
 
       <h4><strong>Question 7</strong></h4>
-      <h5>You are always thinking about chicken.</h5>
+      <h5>If the room is full, you stay closer to the walls, avoiding the center.</h5>
       <select class="chosen-select" id="q7">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -144,7 +144,7 @@
       <br>
 
       <h4><strong>Question 8</strong></h4>
-      <h5>You are always thinking about chicken.</h5>
+      <h5>You feel very anxious in stressful situations.</h5>
       <select class="chosen-select" id="q8">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -158,7 +158,7 @@
       <br>
 
       <h4><strong>Question 9</strong></h4>
-      <h5>You are always thinking about chicken.</h5>
+      <h5>You believe that it is more rewarding to be liked by others than to be powerful.</h5>
       <select class="chosen-select" id="q9">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -172,7 +172,7 @@
       <br>
 
       <h4><strong>Question 10</strong></h4>
-      <h5>You are always thinking about chicken.</h5>
+      <h5>You have always been interested in unconventional and ambiguous things, e.g. in books, art, or movies.</h5>
       <select class="chosen-select" id="q10">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -186,7 +186,7 @@
       <br>
 
 
-      <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+      <button class="btn btn-primary btn-lg btn-block submit" type="submit">Submit</button>
     </form>
     <hr class="my-4">
 
@@ -196,9 +196,76 @@
             Repo</a></p>
       </div>
     </footer>
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Closest Friend Match</h4>
+        <div class="divider"></div>
+        <h5 id="userMatch"></h5>
+        <img id="userMatchImage" class="materialboxed" width="650" src="">
+      </div>
+      <div class="modal-footer">
+        <a href="/survey" class="modal-action modal-close waves-effect waves-green btn-flat">Fill Again!</a>
+      </div>
+    </div>
   </div>
 
+  <!--Handles how the form data gets sent to the server -->
+  <script type="text/javascript">
 
+    $(document).ready(function () {
+      $('select').material_select();
+      $('.modal').modal({
+        dismissible: false, // Modal can be dismissed by clicking outside of the modal
+        opacity: .5, // Opacity of modal background
+        inDuration: 300, // Transition in duration
+        outDuration: 200, // Transition out duration
+        startingTop: '4%', // Starting top style attribute
+        endingTop: '10%' // Ending top style attribute
+      });
+    });
+    $(".submit").on("click", function (event) {
+      event.prenventDefault();
+
+      // grab the form elements
+      var newFriend = {
+        name: $(".nameFriend").val().trim(),
+        photo: $(".pictureFriend").val().trim(),
+        scores: [
+          $("#q1").val().trim(),
+          $("#q2").val().trim(),
+          $("#q3").val().trim(),
+          $("#q4").val().trim(),
+          $("#q5").val().trim(),
+          $("#q6").val().trim(),
+          $("#q7").val().trim(),
+          $("#q8").val().trim(),
+          $("#q9").val().trim(),
+          $("#q10").val().trim()
+        ]
+
+      }
+
+      console.log("New Friend is " + JSON.stringify(newFriend));
+
+      //add user inputs into friends list
+
+      $.post("/api/friends", newFriend).done(function (data) {
+
+        $('#userMatch').html(data.matchName);
+        $("#userMatchImage").attr("src", data.matchImage);
+        // Pop open the modal dialog
+        $('#modal1').modal('open');
+      })
+
+
+
+
+
+    })
+
+
+
+  </script>
 </body>
 
 </html>
