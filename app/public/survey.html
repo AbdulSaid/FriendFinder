@@ -209,7 +209,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <h2 id="bestFriendModal"></h2>
+            <h2 id="bestFriendNameModal"></h2>
             <img id="bestFriendPhotoModal" src="#">
           </div>
           <div class="modal-footer">
@@ -266,8 +266,8 @@
 
         $.post(currentURL + "/api/friends", newFriend, function (data) {
           console.log(JSON.stringify(data))
-          $('#bestFriendModal').text(data.matchName);
-          $("#bestFriendPhotoModal").attr("src", data.matchImage);
+          $('#bestFriendNameModal').text(data.name);
+          $("#bestFriendPhotoModal").attr("src", data.photo);
           // Pop open the modal dialog
           $('#bestFriendModal').modal('toggle');
         })

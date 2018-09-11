@@ -12,30 +12,38 @@ module.exports = function(app) {
 
   // Add new friend entry
   app.post('/api/friends', function(req, res) {
+    // Recieves user details (name, photo, scores)
     var userInput = req.body;
 
-    var userResponses = userInput.scores;
-    console.log('userResponses' + userResponses);
+    // Figure out the scores
+    for (var i = 0; i < userInput.scores.length; i++) {
+      userInput.scores[i] = parseInt(userInput.scores[i]);
+    }
 
-    // Figure out whose the best friend
+    // Best Friend will be whoover has the minimum difference in scores
+    var bestFriendIndex = 0;
+    var minimumDifference = 40;
 
-    var matchName = '';
-    var matchImage = '';
-    var totalDifference = 10000;
+    // For loop to figure out the difference
 
-    // Total existing friends
     for (var i = 0; i < friends.length; i++) {
-      var diff = 0;
-      for (var j = 0; j < userResponses.length; j++) {
-        diff += Math.abs(friends[i].scores[j] - userResponses[j]);
+      var totalDifference = 0;
+
+      for (var j = 0; j < friends[i].scores.length; j++) {
+        var difference = Math.abs(userInput.scores[j] - friends[i].scores[j]);
+        totalDifference += difference;
       }
-      if (diff < totalDifference) {
-        totalDifference = diff;
-        matchName = friends[i].name;
-        matchImage = friends[i].photo;
+
+      // If their is a new best friend, change the best friend index
+      if (totalDifference < minimumDifference) {
+        bestFriendIndex = i;
+        minimumDifference = totalDifference;
       }
     }
+    // After finding match, add user to friend array
     friends.push(userInput);
-    res.json({ status: 'OK', matchName: matchName, matchImage: matchImage });
+
+    //send back to browser the best friend match
+    res.json(friends[bestFriendIndex]);
   });
 };
