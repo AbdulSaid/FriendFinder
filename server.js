@@ -12,7 +12,7 @@ var PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use(express.static('public'));
 // Routes for the server to give a "map" of how to respond on user visit or request of data
 
 require('./app/routing/apiRoutes')(app);
